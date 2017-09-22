@@ -5,11 +5,22 @@ $(document).ready(function() {
     //Array of film dirctors 
     var directors = ["Woody Allen", "Martin Scorcese", "Alfred Hitchcock", "Stanley Kubrick", "David Lynch"]
 
-    function displayDirectorGif(){
+    function displayDirectorGif() {
 
         var director = $(this).attr("data-name");
-        queryURL=
+        var queryURL = "https://api.giphy.com/v1/gifs/search?q="+director+"api_key=7tGp5YYCPv9T3FNcTRLli4JLDAzbeJGJ&q=&limit=10&offset=0&rating=G&lang=en"
 
+            //creating an AJAX call for the button being clicked
+
+            .ajax({
+                url: queryURL,
+                method: get
+            }).done(function(
+                return) {
+ 
+
+
+            });
     }
 
     // this function will create a button for each film director in the array
