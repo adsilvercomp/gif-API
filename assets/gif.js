@@ -47,13 +47,25 @@ $(document).ready(function() {
 
 
                 //creating a div with the class "item"
-                var gifDiv = $("<div class='item'>");
+                var gifDiv = $("<div class='items'>");
 
                 //storing the result item's rating
                 var rating = results[i].rating;
 
+
                 //creating an image tag
                 var personImage = $("<img>");
+                var klass="item"
+                personImage.attr("src", results[i].images.fixed_height_still.url)
+                personImage.attr("data-state", "still")
+                personImage.attr("data-still", results[i].images.fixed_height_still.url)
+                personImage.attr("data-animate", results[i].images.fixed_height.url)
+                personImage.attr("class", klass);
+
+                //personImage.attr("src", results[i].images.original.url, "data-state=animate", results[i].images.fixed_height.url, "data-state=still", results[i].images.fixed_height_still.url, "class=item");
+                //personImage.attr("src", results[i].images.original.url, "data-state=still", results[i].images.fixed_height_still.url, "data-state=animate", results[i].images.fixed_height.url, "class=item");
+
+
 
                 //appending the image and rating to the gifDiv
                 gifDiv.append(personImage);
@@ -66,26 +78,12 @@ $(document).ready(function() {
                 //giving the image tag a src attribute of a property pulled off
                 //the result item.
 
-                // personImage.attr("src", results[i].images.fixed_height.url);
-                personImage.attr("src", results[i].images.original.url, "data.state=still", results[i].images.fixed_height_still.url, "data.state=animate", results[i].images.fixed_height.url, "class=item");
-                personImage.attr("src", results[i].images.original.url, "data.state=animate", results[i].images.fixed_height.url, "data.state=still", results[i].images.fixed_height_still.url, "class=item");
-                personImage.attr("src", results[i].images.original.url, "data.state=still", results[i].images.fixed_height_still.url, "data.state=animate", results[i].images.fixed_height.url, "class=item");
+                // personImage.attr("src", results[i].images.original.url, "data-state=still", results[i].images.fixed_height_still.url, "data-state=animate", results[i].images.fixed_height.url, "class=item");
+                //  personImage.attr("src", results[i].images.original.url, "data-state=animate", results[i].images.fixed_height.url, "data-state=still", results[i].images.fixed_height_still.url, "class=item");
+                //  personImage.attr("src", results[i].images.original.url, "data-state=still", results[i].images.fixed_height_still.url, "data-state=animate", results[i].images.fixed_height.url, "class=item");
 
-                // var state = $(this).attr("data-state");
-                var state = true;
 
-                $(".item").on("click", function() {
-                    if (state === "still") {
-                        $(this).attr("src", $(this).attr("data-animate"));
-                        $(this).attr("data-state", "animate");
-                    } else {
-                        $(this).attr("src", $(this).attr("data-still"));
-                        $(this).attr("data-state", "still");
-                    }
 
-                    console.log("data-state");
-
-                });
 
 
             }
@@ -94,6 +92,21 @@ $(document).ready(function() {
         });
 
     };
+
+
+    $("#gif-Container").on("click", ".item", function() {
+        var state = $(this).attr("data-state");
+        if (state === "still") {
+            $(this).attr("src", $(this).attr("data-animate"));
+            $(this).attr("data-state", "animate");
+        } else {
+            $(this).attr("src", $(this).attr("data-still"));
+            $(this).attr("data-state", "still");
+        }
+
+
+
+    });
 
 
 
