@@ -2,12 +2,17 @@
 $(document).ready(function() {
     console.log("ready!");
 
+
     //Array of film dirctors 
     var directors = ["Woody Allen", "Martin Scorcese", "Alfred Hitchcock", "Stanley Kubrick", "David Lynch"]
     var director;
-    var animation = false;
     //this click event causes the displayDirecorGif function to be called whenever a director's button is clicked.
 
+
+
+
+    //this function ensures that a director's button produces gifs pertaining to that director.
+    //this function accomplishes this by calling displayDirectorGif()
     $("#bContainer").on("click", ".Drect", function() {
 
         director = $(this).attr("data-director");
@@ -19,11 +24,11 @@ $(document).ready(function() {
     });
 
     //this displayDirectorGif function makes an AJAX call to the gif website, for the director whose button was clicked.
-    //
+    //it also loops through the gifs and prints them to the screen along with their rating. 
     function displayDirectorGif() {
         //var director = (this).attr("data-director");
         var queryURL = "https://api.giphy.com/v1/gifs/search?api_key=7tGp5YYCPv9T3FNcTRLli4JLDAzbeJGJ&q=" + director + "&limit=10&offset=0&rating=G&lang=en"
-
+        var state = $(this).attr("data-state");
         //creating an AJAX call for the button being clicked
         $.ajax({
             url: queryURL,
@@ -34,8 +39,8 @@ $(document).ready(function() {
             //storing array of results in results variable
             var results = response.data;
             console.log(results);
-            var state = $(this).attr("data-state");
-           
+
+
 
             //looping over every result item
             for (var i = 0; i < results.length; i++) {
@@ -60,20 +65,38 @@ $(document).ready(function() {
 
                 //giving the image tag a src attribute of a property pulled off
                 //the result item.
-                
-                    personImage.attr("src", results[i].images.fixed_height_still.url);
-               
+
+                // personImage.attr("src", results[i].images.fixed_height.url);
+                personImage.attr("src", results[i].images.original.url, "data.state=still", results[i].images.fixed_height_still.url, "data.state=animate", results[i].images.fixed_height.url, "class=item");
+                personImage.attr("src", results[i].images.original.url, "data.state=animate", results[i].images.fixed_height.url, "data.state=still", results[i].images.fixed_height_still.url, "class=item");
+                personImage.attr("src", results[i].images.original.url, "data.state=still", results[i].images.fixed_height_still.url, "data.state=animate", results[i].images.fixed_height.url, "class=item");
+
+                // var state = $(this).attr("data-state");
+                var state = true;
+
+                $(".item").on("click", function() {
+                    if (state === "still") {
+                        $(this).attr("src", $(this).attr("data-animate"));
+                        $(this).attr("data-state", "animate");
+                    } else {
+                        $(this).attr("src", $(this).attr("data-still"));
+                        $(this).attr("data-state", "still");
+                    }
+
+                    console.log("data-state");
+
+                });
 
 
             }
 
 
-
-
-
         });
 
     };
+
+
+
 
 
 
