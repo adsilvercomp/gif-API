@@ -6,11 +6,11 @@ $(document).ready(function() {
     //Array of film dirctors 
     var directors = ["Woody Allen", "Martin Scorcese", "Alfred Hitchcock", "Stanley Kubrick", "David Lynch"]
     var director;
+   
+
+
+
     //this click event causes the displayDirecorGif function to be called whenever a director's button is clicked.
-
-
-
-
     //this function ensures that a director's button produces gifs pertaining to that director.
     //this function accomplishes this by calling displayDirectorGif()
     $("#bContainer").on("click", ".Drect", function() {
